@@ -62,9 +62,9 @@
           <li><a class="nav-link scrollto" href="/pdetails">Patients Details</a></li>
           <li><a class="nav-link scrollto" href="/slotbooking">Available Beds</a></li>
 
-{% if current_user.is_authenticated  and current_user.hcode %}
+{% if current_user.is_authenticated  and current_user. %}
 
-          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.email}}</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
 
               <li><a href="/addhospitalinfo">Add Hospital Data</a></li>
@@ -73,8 +73,8 @@
            
             </ul>
           </li>
-{% elif current_user.is_authenticated and current_user.srfid %}
-           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.email}}</span> <i class="bi bi-chevron-down"></i></a>
+{% elif current_user.is_authenticated and current_user.email %}
+           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
 
               <li><a href="/slotbooking">Book Slot</a></li>

@@ -58,8 +58,8 @@
         <ul>
           <li><a class="nav-link scrollto " href="/">Home</a></li>
 
-          <li><a class="nav-link scrollto" href="/pdetails">Patients Details</a></li>
-          <li><a class="nav-link scrollto" href="/slotbooking">Available Beds</a></li>
+          <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li>
+          <li><a class="nav-link scrollto" href="/slotbooking">Available Room</a></li>
           <li><a class="nav-link scrollto" href="/trigers">Operations</a></li>
 
 {% if current_user.is_authenticated  and current_user.hcode %}
@@ -73,11 +73,11 @@
            
             </ul>
           </li>
-{% elif current_user.is_authenticated and current_user.srfid %}
-           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.email}}</span> <i class="bi bi-chevron-down"></i></a>
+{% elif current_user.is_authenticated and current_user.email %}
+           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
 
-              <li><a href="/slotbooking">Book Slot</a></li>
+              <li><a href="/slotbooking">Book Room</a></li>
               <li><a href="/logout">Logout</a></li>
       
            
@@ -87,7 +87,7 @@
           <li class="dropdown"><a href="/login"><span>Sign In</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="/login">User Login</a></li>
-              <li><a href="/hospitallogin">Hospital Login</a></li>
+              <li><a href="/hospitallogin">Hotel Login</a></li>
               <li><a href="/admin">Admin Login</a></li>
            
             </ul>
@@ -99,7 +99,7 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
-      <a href="/slotbooking" class="appointment-btn scrollto"><span class="d-none d-md-inline">Bed Booking Slot</span> Book Now</a>
+      <a href="/slotbooking" class="appointment-btn scrollto"><span class="d-none d-md-inline">Bed Room Slot</span> Book Now</a>
 
     </div>
   </header><!-- End Header -->
@@ -115,8 +115,8 @@
         <!-- Slide 1 -->
         <div class="carousel-item active" style="background-image: url(static/assets/img/slide/slide-1.jpg)">
           <div class="container">
-            <h2>Welcome to <span>Covid center</span></h2>
-            <p>Banglore bed booking system <p>
+            <h2>Welcome to <span>Hotel Booking</span></h2>
+            <p>Banglore Room booking system <p>
             <a href="#about" class="btn-get-started scrollto">Read More</a>
           </div>
         </div>

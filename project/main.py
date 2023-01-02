@@ -38,7 +38,7 @@ login_manager=LoginManager(app)
 login_manager.login_view='login'
 
 # app.config['SQLALCHEMY_DATABASE_URI']='mysql://username:password@localhost/databsename'
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/covid'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/hdms'
 db=SQLAlchemy(app)
 
 
@@ -56,8 +56,12 @@ class Test(db.Model):
 class User(UserMixin,db.Model):
     id=db.Column(db.Integer,primary_key=True)
     srfid=db.Column(db.String(20),unique=True)
+    name=db.Column(db.String(20))
     email=db.Column(db.String(50))
     dob=db.Column(db.String(1000))
+    password=db.Column(db.String(1000))
+    cpassword=db.Column(db.String(1000))
+    
 
 
 class Hospitaluser(UserMixin,db.Model):
@@ -112,16 +116,19 @@ def trigers():
 def signup():
     if request.method=="POST":
         srfid=request.form.get('srf')
+        name=request.form.get('name')
         email=request.form.get('email')
         dob=request.form.get('dob')
+        password=request.form.get('password')
+        cpassword=request.form.get('cpassword')
         # print(srfid,email,dob)
-        encpassword=generate_password_hash(dob)
+        encpassword=generate_password_hash(password)
         user=User.query.filter_by(srfid=srfid).first()
         emailUser=User.query.filter_by(email=email).first()
         if user or emailUser:
             flash("Email or srif is already taken","warning")
             return render_template("usersignup.html")
-        new_user=db.engine.execute(f"INSERT INTO `user` (`srfid`,`email`,`dob`) VALUES ('{srfid}','{email}','{encpassword}') ")
+        new_user=db.engine.execute(f"INSERT INTO `user` (`srfid`,`name`,`email`,`dob`,`password`,`cpassword`) VALUES ('{srfid}','{name}','{email}','{dob}','{encpassword}','{cpassword}') ")
                 
         flash("SignUp Success Please Login","success")
         return render_template("userlogin.html")
@@ -132,10 +139,12 @@ def signup():
 @app.route('/login',methods=['POST','GET'])
 def login():
     if request.method=="POST":
-        srfid=request.form.get('srf')
-        dob=request.form.get('dob')
-        user=User.query.filter_by(srfid=srfid).first()
-        if user and check_password_hash(user.dob,dob):
+        # srfid=request.form.get('srf')
+        email=request.form.get('email')
+        password=request.form.get('password')
+        user=User.query.filter_by(email=email).first()
+        
+        if user and check_password_hash(user.password,password):
             login_user(user)
             flash("Login Success","info")
             return render_template("index.html")
