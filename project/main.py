@@ -16,8 +16,9 @@ local_server=True
 app=Flask(__name__)
 app.secret_key="aneesrehmankhan"
 
-
 # with open('config.json','r') as c:
+#   params=json.load(c)["params"]
+# with open('../templates/config.json','r') as c:
 #     params=json.load(c)["params"]
 
 
@@ -155,8 +156,8 @@ def login():
 
     return render_template("userlogin.html")
 
-@app.route('/hospitallogin',methods=['POST','GET'])
-def hospitallogin():
+@app.route('/hotellogin',methods=['POST','GET'])
+def hotellogin():
     if request.method=="POST":
         email=request.form.get('email')
         password=request.form.get('password')
@@ -178,7 +179,7 @@ def admin():
     if request.method=="POST":
         username=request.form.get('username')
         password=request.form.get('password')
-        if(username=="admin" and password=="admin"):
+        if(username=='rahulsrock' and password=='rock123'):
             session['user']=username
             flash("login success","info")
             return render_template("addHosUser.html")
