@@ -1,7 +1,7 @@
 {% extends 'baselogin.html' %}
 {% block title %} User Login{% endblock title %}
 {% block form %}
-<h2>Login </h2>
+<h2> User Login</h2>
 
 <div class="row">
 <div class="col-md-4"></div>
@@ -14,19 +14,19 @@
 {% include "message.html" %}
 
 <div class="form-group">
-<input type="email" class="form-control mt-2" placeholder="email" name="email" required>
+<input type="email" class="form-control mt-2" placeholder="XYZ@gmail.com" name="email" required>
 </div>
 
 
 <div class="form-group">
-<input type="text" class="form-control mt-2" placeholder="password" name="password" required>
+<input type="text" class="form-control mt-2" placeholder="Password" name="password" required>
 </div>
 <br>
 <button type="submit" class="btn btn-info">Login</button>
 
 </form>
-
-<a class="text-dark" href="/signup">New User? Signup </a>
+<br>
+<a class="text-dark" href="/signup" style="font-size: small;">New User? SignUp </a>
 </div>
 
 

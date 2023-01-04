@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Top Bar
 --------------------------------------------------------------*/
-#topbar {
+/* #topbar {
   background: #3fbbc0;
   color: #fff;
   height: 40px;
@@ -128,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 #topbar i {
   padding-right: 6px;
   line-height: 0;
-}
+} */
 
 /*--------------------------------------------------------------
 # Header
@@ -138,8 +138,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.5s;
   z-index: 997;
   padding: 20px 0;
-  top: 40px;
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 @media (max-width: 992px) {
   #header {
@@ -402,7 +401,8 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 50px;
-  border-top: 4px solid #3fbbc0;
+  border-top: 6px solid #3fbbc0;
+  border-radius: 0 0 15px 15px;
 }
 @media (max-width: 1200px) {
   #hero .container {
