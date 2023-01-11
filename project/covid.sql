@@ -56,32 +56,32 @@ CREATE TABLE `hospitaldata` (
   `id` int(11) NOT NULL,
   `hcode` varchar(200) NOT NULL,
   `hname` varchar(200) NOT NULL,
-  `normalbed` int(11) NOT NULL,
-  `hicubed` int(11) NOT NULL,
-  `icubed` int(11) NOT NULL,
-  `vbed` int(11) NOT NULL
+  `normalroom` int(11) NOT NULL,
+  `acroom` int(11) NOT NULL,
+  `nonacroom` int(11) NOT NULL,
+  `luxaryroom` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `hospitaldata`
 --
 
-INSERT INTO `hospitaldata` (`id`, `hcode`, `hname`, `normalbed`, `hicubed`, `icubed`, `vbed`) VALUES
-(3, 'MAT123', 'Matha Hospital', 40, 4, 4, 1);
+-- INSERT INTO `hospitaldata` (`id`, `hcode`, `hname`, `normalroom`, `acroom`, `nonacroom`, `luxaryroom`) VALUES
+-- (3, 'MAT123', 'Matha Hospital', 40, 4, 4, 1);
 
 --
 -- Triggers `hospitaldata`
 --
 DELIMITER $$
-CREATE TRIGGER `Insert` AFTER INSERT ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,NEW.hcode,NEW.normalbed,NEW.hicubed,NEW.icubed,NEW.vbed,' INSERTED',NOW())
+CREATE TRIGGER `Insert` AFTER INSERT ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,NEW.hcode,NEW.normalroom,NEW.acroom,NEW.nonacroom,NEW.luxaryroom,' INSERTED',NOW())
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `Update` AFTER UPDATE ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,NEW.hcode,NEW.normalbed,NEW.hicubed,NEW.icubed,NEW.vbed,' UPDATED',NOW())
+CREATE TRIGGER `Update` AFTER UPDATE ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,NEW.hcode,NEW.normalroom,NEW.acroom,NEW.nonacroom,NEW.luxaryroom,' UPDATED',NOW())
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `delet` BEFORE DELETE ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,OLD.hcode,OLD.normalbed,OLD.hicubed,OLD.icubed,OLD.vbed,' DELETED',NOW())
+CREATE TRIGGER `delet` BEFORE DELETE ON `hospitaldata` FOR EACH ROW INSERT INTO trig VALUES(null,OLD.hcode,OLD.normalroom,OLD.acroom,OLD.nonacroom,OLD.luxaryroom,' DELETED',NOW())
 $$
 DELIMITER ;
 
@@ -134,10 +134,10 @@ INSERT INTO `test` (`id`, `name`) VALUES
 CREATE TABLE `trig` (
   `id` int(11) NOT NULL,
   `hcode` varchar(50) NOT NULL,
-  `normalbed` int(11) NOT NULL,
-  `hicubed` int(11) NOT NULL,
-  `icubed` int(11) NOT NULL,
-  `vbed` int(11) NOT NULL,
+  `normaroom` int(11) NOT NULL,
+  `acroom` int(11) NOT NULL,
+  `nonacroom` int(11) NOT NULL,
+  `luxaryroom` int(11) NOT NULL,
   `querys` varchar(50) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -146,9 +146,9 @@ CREATE TABLE `trig` (
 -- Dumping data for table `trig`
 --
 
-INSERT INTO `trig` (`id`, `hcode`, `normalbed`, `hicubed`, `icubed`, `vbed`, `querys`, `date`) VALUES
-(1, 'BBH01', 50, 9, 2, 1, ' UPDATED', '2021-11-26'),
-(2, 'BBH01', 50, 9, 2, 1, ' DELETED', '2021-11-26');
+-- INSERT INTO `trig` (`id`, `hcode`, `normalbed`, `hicubed`, `icubed`, `vbed`, `querys`, `date`) VALUES
+-- (1, 'BBH01', 50, 9, 2, 1, ' UPDATED', '2021-11-26'),
+-- (2, 'BBH01', 50, 9, 2, 1, ' DELETED', '2021-11-26');
 
 -- --------------------------------------------------------
 
@@ -158,18 +158,21 @@ INSERT INTO `trig` (`id`, `hcode`, `normalbed`, `hicubed`, `icubed`, `vbed`, `qu
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `srfid` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `dob` varchar(1000) NOT NULL
+  `dob` varchar(1000) NOT NULL,
+  `password` varchar(1000) NOT NULL,
+  `cpassword` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `srfid`, `email`, `dob`) VALUES
-(9, 'KA20210011', 'ark@gmail.com', 'pbkdf2:sha256:260000$AhqgDCims0G1LSEi$ada839cc254cd79f9708e777ae02d83cec210677c342e01c3affd8c1358775d9'),
-(10, 'KA20210022', 'rehman@gmail.com', 'pbkdf2:sha256:260000$74GEC2qyVtOiPl5s$2a95f811bbd5a50eaac0404fb8fa3682b6c3b67f4493037134c9672393136694');
+-- INSERT INTO `user` (`id`, `srfid`, `email`, `dob`) VALUES
+-- (9, 'KA20210011', 'ark@gmail.com', 'pbkdf2:sha256:260000$AhqgDCims0G1LSEi$ada839cc254cd79f9708e777ae02d83cec210677c342e01c3affd8c1358775d9'),
+-- (10, 'KA20210022', 'rehman@gmail.com', 'pbkdf2:sha256:260000$74GEC2qyVtOiPl5s$2a95f811bbd5a50eaac0404fb8fa3682b6c3b67f4493037134c9672393136694');
 
 --
 -- Indexes for dumped tables

@@ -6,8 +6,8 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 
 from flask_login import login_required,logout_user,login_user,login_manager,LoginManager,current_user
-
-# from flask_mail import Mail
+# import os
+from flask_mail import Mail
 import json
 
 
@@ -25,10 +25,12 @@ app.secret_key="aneesrehmankhan"
 
 # app.config.update(
 #     MAIL_SERVER='smtp.gmail.com',
-#     MAIL_PORT='465',
+#     MAIL_PORT=465,
 #     MAIL_USE_SSL=True,
-#     MAIL_USERNAME='gmail account',
-#     MAIL_PASSWORD='gmail account password'
+#     MAIL_USERNAME='eligiblerock@gmail.com',
+#     MAIL_PASSWORD='Rahulsrock@123!'
+# #     MAIL_USE_TLS = False
+# #     MAIL_USE_SSL = True
 # )
 # mail = Mail(app)
 
@@ -39,7 +41,7 @@ login_manager=LoginManager(app)
 login_manager.login_view='login'
 
 # app.config['SQLALCHEMY_DATABASE_URI']='mysql://username:password@localhost/databsename'
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/hdms'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/hddms'
 db=SQLAlchemy(app)
 
 
@@ -47,6 +49,7 @@ db=SQLAlchemy(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id)) or Hospitaluser.query.get(int(user_id))
+
 
 
 class Test(db.Model):
@@ -76,18 +79,18 @@ class Hospitaldata(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     hcode=db.Column(db.String(20),unique=True)
     hname=db.Column(db.String(100))
-    normalbed=db.Column(db.Integer)
-    hicubed=db.Column(db.Integer)
-    icubed=db.Column(db.Integer)
-    vbed=db.Column(db.Integer)
+    normalroom=db.Column(db.Integer)
+    acroom=db.Column(db.Integer)
+    nonacroom=db.Column(db.Integer)
+    luxaryroom=db.Column(db.Integer)
 
 class Trig(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     hcode=db.Column(db.String(20))
-    normalbed=db.Column(db.Integer)
-    hicubed=db.Column(db.Integer)
-    icubed=db.Column(db.Integer)
-    vbed=db.Column(db.Integer)
+    normalroom=db.Column(db.Integer)
+    acroom=db.Column(db.Integer)
+    nonacroom=db.Column(db.Integer)
+    luxaryroom=db.Column(db.Integer)
     querys=db.Column(db.String(50))
     date=db.Column(db.String(50))
 
@@ -168,10 +171,10 @@ def hotellogin():
             return render_template("index.html")
         else:
             flash("Invalid Credentials","danger")
-            return render_template("hospitallogin.html")
+            return render_template("hotellogin.html")
 
 
-    return render_template("hospitallogin.html")
+    return render_template("hotellogin.html")
 
 @app.route('/admin',methods=['POST','GET'])
 def admin():
@@ -200,30 +203,30 @@ def logout():
 @app.route('/addHospitalUser',methods=['POST','GET'])
 def hospitalUser():
    
-    if('user' in session and session['user']=="admin"):
+    if('user' in session and session['user']=='rahulsrock'):
       
         if request.method=="POST":
             hcode=request.form.get('hcode')
             email=request.form.get('email')
             password=request.form.get('password')        
             encpassword=generate_password_hash(password)  
-            hcode=hcode.upper()      
+            # hcode=hcode.upper()      
             emailUser=Hospitaluser.query.filter_by(email=email).first()
             if  emailUser:
                 flash("Email or srif is already taken","warning")
-         
+                return render_template("addHosUser.html")
             db.engine.execute(f"INSERT INTO `hospitaluser` (`hcode`,`email`,`password`) VALUES ('{hcode}','{email}','{encpassword}') ")
 
             # my mail starts from here if you not need to send mail comment the below line
            
-            # mail.send_message('COVID CARE CENTER',sender=params['gmail-user'],recipients=[email],body=f"Welcome thanks for choosing us\nYour Login Credentials Are:\n Email Address: {email}\nPassword: {password}\n\nHospital Code {hcode}\n\n Do not share your password\n\n\nThank You..." )
+            # mail.send_message('HOTEL MANAGEMENT CENTER',sender='eligiblerock@gmail.com',recipients=[email],body=f"Welcome thanks for choosing us\nYour Login Credentials Are:\n Email Address: {email}\nPassword: {password}\n\nHospital Code {hcode}\n\n Do not share your password\n\n\nThank You..." )
 
             flash("Data Sent and Inserted Successfully","warning")
             return render_template("addHosUser.html")
 
     else:
         flash("Login and try Again","warning")
-        return render_template("addHosUser.html")
+        return render_template('/admin')
     
 
 
@@ -260,18 +263,18 @@ def addhospitalinfo():
     if request.method=="POST":
         hcode=request.form.get('hcode')
         hname=request.form.get('hname')
-        nbed=request.form.get('normalbed')
-        hbed=request.form.get('hicubeds')
-        ibed=request.form.get('icubeds')
-        vbed=request.form.get('ventbeds')
-        hcode=hcode.upper()
+        normalroom=request.form.get('normalroom')
+        acroom=request.form.get('acroom')
+        nonacroom=request.form.get('nonacroom')
+        luxaryroom=request.form.get('luxaryroom')
+        # hcode=hcode.upper()
         huser=Hospitaluser.query.filter_by(hcode=hcode).first()
         hduser=Hospitaldata.query.filter_by(hcode=hcode).first()
         if hduser:
             flash("Data is already Present you can update it..","primary")
             return render_template("hospitaldata.html")
         if huser:            
-            db.engine.execute(f"INSERT INTO `hospitaldata` (`hcode`,`hname`,`normalbed`,`hicubed`,`icubed`,`vbed`) VALUES ('{hcode}','{hname}','{nbed}','{hbed}','{ibed}','{vbed}')")
+            db.engine.execute(f"INSERT INTO `hospitaldata` (`hcode`,`hname`,`normalroom`,`acroom`,`nonacroom`,`luxaryroom`) VALUES ('{hcode}','{hname}','{normalroom}','{acroom}','{nonacroom}','{luxaryroom}')")
             flash("Data Is Added","primary")
             return redirect('/addhospitalinfo')
             
@@ -285,7 +288,6 @@ def addhospitalinfo():
 
     return render_template("hospitaldata.html",postsdata=postsdata)
 
-
 @app.route("/hedit/<string:id>",methods=['POST','GET'])
 @login_required
 def hedit(id):
@@ -294,16 +296,16 @@ def hedit(id):
     if request.method=="POST":
         hcode=request.form.get('hcode')
         hname=request.form.get('hname')
-        nbed=request.form.get('normalbed')
-        hbed=request.form.get('hicubeds')
-        ibed=request.form.get('icubeds')
-        vbed=request.form.get('ventbeds')
+        normalroom=request.form.get('normalroom')
+        acroom=request.form.get('acroom')
+        nonacroom=request.form.get('nonacroom')
+        luxaryroom=request.form.get('luxaryroom')
         hcode=hcode.upper()
-        db.engine.execute(f"UPDATE `hospitaldata` SET `hcode` ='{hcode}',`hname`='{hname}',`normalbed`='{nbed}',`hicubed`='{hbed}',`icubed`='{ibed}',`vbed`='{vbed}' WHERE `hospitaldata`.`id`={id}")
+        db.engine.execute(f"UPDATE `hospitaldata` SET `hcode` ='{hcode}',`hname`='{hname}',`normalroom`='{normalroom}',`acroom`='{acroom}',`nonacroom`='{nonacroom}',`luxaryroom`='{luxaryroom}' WHERE `hospitaldata`.`id`={id}")
         flash("Slot Updated","info")
         return redirect("/addhospitalinfo")
 
-    # posts=Hospitaldata.query.filter_by(id=id).first()
+    posts=Hospitaldata.query.filter_by(id=id).first()
     return render_template("hedit.html",posts=posts)
 
 
@@ -315,13 +317,13 @@ def hdelete(id):
     return redirect("/addhospitalinfo")
 
 
-@app.route("/pdetails",methods=['GET'])
+@app.route("/pdetails",methods=['GET','POST'])
 @login_required
 def pdetails():
-    code=current_user.srfid
+    code=current_user.hcode
     print(code)
-    data=Bookingpatient.query.filter_by(srfid=code).first()
-    return render_template("detials.html",data=data)
+    datas=db.engine.execute(f"SELECT `pname`,`bedtype`,`pphone`,`paddress` FROM `bookingpatient`,`hospitaldata` WHERE `bookingpatient`.`hcode`=`hospitaldata`.`hcode` and `hospitaldata`.`hcode`='{code}'")
+    return render_template("detials.html",datas=datas)
 
 
 @app.route("/slotbooking",methods=['POST','GET'])
@@ -329,6 +331,7 @@ def pdetails():
 def slotbooking():
     query1=db.engine.execute(f"SELECT * FROM `hospitaldata` ")
     query=db.engine.execute(f"SELECT * FROM `hospitaldata` ")
+    # query2=db.engine.execute(f"SELECT * FROM `hospitaldata` ")
     if request.method=="POST":
         
         srfid=request.form.get('srfid')
@@ -341,7 +344,7 @@ def slotbooking():
         check2=Hospitaldata.query.filter_by(hcode=hcode).first()
         checkpatient=Bookingpatient.query.filter_by(srfid=srfid).first()
         if checkpatient:
-            flash("already srd id is registered ","warning")
+            flash("already User is registered ","warning")
             return render_template("booking.html",query=query,query1=query1)
         
         if not check2:
@@ -351,36 +354,36 @@ def slotbooking():
         code=hcode
         dbb=db.engine.execute(f"SELECT * FROM `hospitaldata` WHERE `hospitaldata`.`hcode`='{code}' ")        
         bedtype=bedtype
-        if bedtype=="NormalBed":       
+        if bedtype=="normalroom":       
             for d in dbb:
-                seat=d.normalbed
+                seat=d.normalroom
                 print(seat)
                 ar=Hospitaldata.query.filter_by(hcode=code).first()
-                ar.normalbed=seat-1
+                ar.normalroom=seat-1
                 db.session.commit()
                 
             
-        elif bedtype=="HICUBed":      
+        elif bedtype=="acroom":      
             for d in dbb:
-                seat=d.hicubed
+                seat=d.acroom
                 print(seat)
                 ar=Hospitaldata.query.filter_by(hcode=code).first()
-                ar.hicubed=seat-1
+                ar.acroom=seat-1
                 db.session.commit()
 
-        elif bedtype=="ICUBed":     
+        elif bedtype=="nonacroom":     
             for d in dbb:
-                seat=d.icubed
+                seat=d.nonacroom
                 print(seat)
                 ar=Hospitaldata.query.filter_by(hcode=code).first()
-                ar.icubed=seat-1
+                ar.nonacroom=seat-1
                 db.session.commit()
 
-        elif bedtype=="VENTILATORBed": 
+        elif bedtype=="luxaryrom": 
             for d in dbb:
-                seat=d.vbed
+                seat=d.luxaryrom
                 ar=Hospitaldata.query.filter_by(hcode=code).first()
-                ar.vbed=seat-1
+                ar.luxaryrom=seat-1
                 db.session.commit()
         else:
             pass

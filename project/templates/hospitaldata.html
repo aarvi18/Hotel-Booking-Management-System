@@ -1,6 +1,6 @@
 {% extends "navbar.html" %}
 {% block title %}
-Add Hospital Information
+Add Hotel Information
 {% endblock title %}
 {% block body %}
 <br>
@@ -10,7 +10,7 @@ Add Hospital Information
 <br>
 
 <div class="container mt-4">
-<div class="display-4 text-center text-info">Add Hospital Data</div>
+<div class="display-4 text-center text-info">Add Hotel Data</div>
 <br>
 <div class="row">
 
@@ -22,30 +22,30 @@ Add Hospital Information
             <div class="card-body bg-light">
 
                 <form action="/addhospitalinfo" method="post">
-                    <Center>Hospital Code : {{current_user.hcode}}</Center>
+                    <Center>Hotel Code :{{current_user.hcode}}</Center>
                     <div class="form-group">
                         <input type="text" class="form-control mt-2" name="hcode" 
-                        value="{{current_user.hcode}}"
-                        placeholder="Enter the Hospital Code" required hidden>
+                        
+                        placeholder="Enter the Hotel Code" required >
                     </div>
 
                     <div class="form-group">
-                        <input type="text" class="form-control mt-2" name="hname" placeholder="Enter Hospital Name" required>
+                        <input type="text" class="form-control mt-2" name="hname" placeholder="Enter Hotel Name" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="number" class="form-control mt-2" name="normalbed" placeholder="Normal Bed Available?"  value="" required>
+                        <input type="number" class="form-control mt-2" name="normalroom" placeholder="Normal Room Available?"  value="" required>
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control mt-2" name="hicubeds" placeholder="H.I.C.U Bed Available?" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="number" class="form-control mt-2" name="icubeds" placeholder="I.C.U Bed Available?" required>
+                        <input type="number" class="form-control mt-2" name="acroom" placeholder="Ac Room Available?" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="number" class="form-control mt-2" name="ventbeds" placeholder="Ventilators Bed Available?" required>
+                        <input type="number" class="form-control mt-2" name="nonacroom" placeholder="Non Ac Room Available?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control mt-2" name="luxaryroom" placeholder="Room required?" required>
                     </div>
                  
                     <br>
@@ -67,19 +67,19 @@ Add Hospital Information
         <div class="card mb-3">
             <div class="row g-0">
               <div class="col-md-4">
-                <img src="https://source.unsplash.com/600x1000/?medical,hospital" class="img-fluid rounded-start" alt="...">
+                <img src="https://source.unsplash.com/600x1000/?hotel,room" class="img-fluid rounded-start" alt="...">
               </div>
               <div class="col-md-8">
                 <div class="card-body bg-dark">
-                  <h5 class="card-title text-center bg-light">Hospital Data</h5>
+                  <h5 class="card-title text-center bg-light">Hotel Data</h5>
                   <div class="card bg-dark" style="width: 28rem;">
                     <ul class="list-group list-group-flush bg-dark">
-                      <li class="list-group-item">Hospital Code : <b>{{postsdata.hcode}}</b> </li>
-                      <li class="list-group-item">Hospital Name : <b>{{postsdata.hname}}</b></li>
-                      <li class="list-group-item">Normal Beds Available :<b>{{postsdata.normalbed}}</b>  </li>
-                      <li class="list-group-item">H.I.C.U Beds Available: <b>{{postsdata.hicubed}}</b> </li>
-                      <li class="list-group-item">I.C.U Beds Available :<b>{{postsdata.icubed}}</b> </li>
-                      <li class="list-group-item">Ventilators Beds Available : <b>{{postsdata.vbed}}</b></li>
+                      <li class="list-group-item">Hotel Code : <b>{{postsdata.hcode}}</b> </li>
+                      <li class="list-group-item">Hotel Name : <b>{{postsdata.hname}}</b></li>
+                      <li class="list-group-item">Normal Room Available :<b>{{postsdata.normalroom}}</b>  </li>
+                      <li class="list-group-item">Ac Room Available: <b>{{postsdata.acroom}}</b> </li>
+                      <li class="list-group-item">Non Ac Room Beds Available :<b>{{postsdata.nonacroom}}</b> </li>
+                      <li class="list-group-item">Luxary Room Available : <b>{{postsdata.luxaryroom}}</b></li>
                       <li class="list-group-item"><a href="/hedit/{{postsdata.id}}"><i class="fas fa-edit"></i></a> </i>
                   
                           <a class="ml-4" confirm('Are you sure to Delete data'); href="/hdelete/{{postsdata.id}}"><i class="fas fa-trash-alt"></i></a>

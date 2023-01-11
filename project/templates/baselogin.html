@@ -58,12 +58,12 @@
         <ul>
           <li><a class="nav-link scrollto " href="/">Home</a></li>
 
-          <li><a class="nav-link scrollto" href="#departments">Patients Details</a></li>
-          <li><a class="nav-link scrollto" href="#doctors">Available Beds</a></li>
+          <li><a class="nav-link scrollto" href="#departments">User Details</a></li>
+          <li><a class="nav-link scrollto" href="#doctors">Available Room</a></li>
 
 {% if current_user.is_authenticated %}
 
-          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/login"><span>Welcome </span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="/logout">Logout</a></li>
       
@@ -74,7 +74,7 @@
           <li class="dropdown"><a href="/login"><span>Sign In</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="/login">User Login</a></li>
-              <li><a href="/hospitallogin">Hotel Login</a></li>
+              <li><a href="/hotellogin">Hotel Login</a></li>
               <li><a href="/admin">Admin Login</a></li>
            
             </ul>
