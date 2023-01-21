@@ -134,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 #header {
-  background: #fff;
+  background: var(--light-main);
   transition: all 0.5s;
   z-index: 997;
   padding: 20px 0;
@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
 */
 .appointment-btn {
   margin-left: 25px;
-  background: #3fbbc0;
+  background: var(--main);
   color: #fff;
   border-radius: 4px;
   padding: 8px 25px;
@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
 }
 .appointment-btn:hover {
-  background: #65c9cd;
+  background: var(--hover-main);
   color: #fff;
 }
 @media (max-width: 768px) {
@@ -401,8 +401,8 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 50px;
-  border-top: 6px solid #3fbbc0;
-  border-radius: 0 0 15px 15px;
+  border-top: 60px solid var(--main);
+  border-radius: 10px 10px 15px 15px;
 }
 @media (max-width: 1200px) {
   #hero .container {
@@ -448,7 +448,7 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 0;
   width: auto;
   height: auto;
-  background: rgba(63, 187, 192, 0.8);
+  background: var(--main);
   border-radius: 50px;
   transition: 0.3s;
   color: rgba(255, 255, 255, 0.5);
@@ -459,7 +459,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
 }
 #hero .carousel-control-next-icon:hover, #hero .carousel-control-prev-icon:hover {
-  background: #3fbbc0;
+  background: var(--hover-main);
   color: rgba(255, 255, 255, 0.8);
 }
 #hero .carousel-indicators li {
@@ -488,10 +488,10 @@ h1, h2, h3, h4, h5, h6 {
   transition: 0.5s;
   line-height: 1;
   color: #fff;
-  background: #3fbbc0;
+  background: var(--main);
 }
 #hero .btn-get-started:hover {
-  background: #65c9cd;
+  background: var(--hover-main);
 }
 @media (max-width: 992px) {
   #hero {
@@ -1246,7 +1246,7 @@ section {
   text-align: center;
 }
 .pricing .btn-buy {
-  background: #3fbbc0;
+  background: var(--main);
   display: inline-block;
   padding: 8px 35px 10px 35px;
   border-radius: 4px;
@@ -1566,4 +1566,22 @@ section {
   padding-top: 10px;
   text-align: center;
   font-size: 13px;
+}
+
+/* ############### Extra added code ########## */
+.btn-info {
+  color: #000;
+  background-color: var(--main);
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: var(--hover-main);
+}
+
+
+:root {
+  --main: #1877f2;
+  --hover-main : #0359c9;
+  --light-main: #bfdbff;
 }
