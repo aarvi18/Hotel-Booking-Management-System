@@ -41,7 +41,7 @@ login_manager=LoginManager(app)
 login_manager.login_view='login'
 
 # app.config['SQLALCHEMY_DATABASE_URI']='mysql://username:password@localhost/databsename'
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/hddms'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/hdms'
 db=SQLAlchemy(app)
 
 
@@ -405,6 +405,30 @@ def slotbooking():
             
     
     return render_template("booking.html",query=query,query1=query1)
+@app.route("/userdetails",methods=['POST','GET'])
+@login_required    
+def userdetails():
+    po=current_user.srfid
+    print(po)
+    users=db.engine.execute(f"SELECT `bedtype`,`spo2`,`paddress`,`pphone` FROM `bookingpatient` WHERE `bookingpatient`.`srfid`='{po}'")
+    return render_template("userdetails.html",users=users)
+@app.route("/useredit",methods=['POST','GET'])
+@login_required
+def useredit():
+    srfid=current_user.srfid
+    posts=Bookingpatient.query.filter_by(srfid=srfid).first()
+    if request.method=="POST":
+        bedtype=request.form.get('bedtype')
+        spo2=request.form.get('spo2')
+        paddress=request.form.get('paddress')
+        pphone=request.form.get('pphone')
+        db.engine.execute(f"UPDATE `bookingpatient` SET `bedtype` ='{bedtype}',`spo2`='{spo2}',`paddress`='{paddress}',`pphone`='{pphone}' WHERE `bookingpatient`.`srfid`={srfid}")
+        flash("Updated","info")
+        return redirect("/userdetails")
+
+    posts=Bookingpatient.query.filter_by(srfid=srfid).first()
+    return render_template("hedit.html",posts=posts)
+        
 
 
 

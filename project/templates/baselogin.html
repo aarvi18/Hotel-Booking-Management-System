@@ -58,12 +58,13 @@
         <ul>
           <li><a class="nav-link scrollto " href="/">Home</a></li>
 
-          <li><a class="nav-link scrollto" href="#departments">User Details</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#departments">User Details</a></li> -->
           <li><a class="nav-link scrollto" href="#doctors">Available Room</a></li>
 
 {% if current_user.is_authenticated %}
+          <li><a class="nav-link scrollto" href="/userdetails">My Details</a></li>
 
-          <li class="dropdown"><a href="/login"><span>Welcome </span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}} </span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="/logout">Logout</a></li>
       

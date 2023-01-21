@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{% block title %}{% endblock title %}</title>
+  <!-- <title>{% block title %}{% endblock title %}</title> -->
+  <title>Hotel Booking</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -60,12 +61,12 @@
         <ul>
           <li><a class="nav-link scrollto " href="/">Home</a></li>
 
-          <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li>
-          <li><a class="nav-link scrollto" href="/slotbooking">Available Room</a></li>
+          <!-- <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li> -->
+         
           <li><a class="nav-link scrollto" href="/trigers">Operations</a></li>
 
           {% if current_user.is_authenticated and current_user.hcode %}
-
+          <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li>
           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.email}}</span> <i
                 class="bi bi-chevron-down"></i></a>
             <ul>
@@ -77,7 +78,8 @@
             </ul>
           </li>
           {% elif current_user.is_authenticated and current_user.email %}
-          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i
+          <li><a class="nav-link scrollto" href="/userdetails">My Details</a></li>
+          <li class="dropdown"><a href="/login"><span>Welcome {{current_user.pname}}</span> <i
                 class="bi bi-chevron-down"></i></a>
             <ul>
 

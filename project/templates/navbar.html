@@ -59,12 +59,11 @@
         <ul>
           <li><a class="nav-link scrollto " href="/">Home</a></li>
 
-          <!-- <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li> -->
-          <li><a class="nav-link scrollto" href="/slotbooking">Available Room</a></li>
+      
 
 {% if current_user.is_authenticated  and current_user.hcode %}
+          
           <li><a class="nav-link scrollto" href="/pdetails">User Details</a></li>
-
           <li class="dropdown"><a href="/login"><span>Welcome {{current_user.email}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
 
@@ -75,9 +74,10 @@
             </ul>
           </li>
 {% elif current_user.is_authenticated and current_user.email %}
+
            <li class="dropdown"><a href="/login"><span>Welcome {{current_user.name}}</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-
+              
               <li><a href="/slotbooking">Book Slot</a></li>
               <li><a href="/logout">Logout</a></li>
       
